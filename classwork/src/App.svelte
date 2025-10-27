@@ -2,12 +2,7 @@
   import Header from "./lib/header.svelte";
   import Navbar from "./lib/navbar.svelte";
   import Main from "./lib/main.svelte";
-  import { svelte-spa-router} from "svelte-spa-router";
-  import Main from "./main.js";
 
-  if (localStorage.getItem("loggedIn") !== "true") {
-    navigate("/");
-  }
   let username = "Habib";
   let profileImg = "public/profile.png";
   let opned = true;
