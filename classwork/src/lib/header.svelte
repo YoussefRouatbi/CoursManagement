@@ -11,7 +11,7 @@
     }
 </script>
 
-<header class="fixed top-0 w-full text-white flex backdrop-blure-xl bg-white/5 items-center justify-between px-6 py-3 shadow-xl z-40">
+<header class="fixed top-0 w-full text-white flex backdrop-blure-xl bg-slate-900 items-center justify-between px-6 py-3 shadow-xl z-40">
   {#if !opned}
     <button on:click={toggleNav}><Menu class = 'w-6 h-6 text-white cursor-pointer'/></button>
   {/if}

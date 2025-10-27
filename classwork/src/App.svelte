@@ -15,8 +15,8 @@
     opned = !opned;
   }
 </script>
-<div class="overflow-y-auto h-screen flex flex-col overflow-hidden bg-linear-to-b from-slate-800 via-slate-900 to-slate-950">
-  <Header {username} {profileImg} {opned} on:toggle={toggleNavbar} />
+<div class="overflow-y-auto  min-h-screen flex flex-col overflow-hidden bg-linear-to-b from-slate-800 via-slate-900 to-slate-950">
+  <div class="z-40">  <Header {username} {profileImg} {opned} on:toggle={toggleNavbar} /></div>
   <div class="flex flex-1 overflow-hidden">
     {#if opned}
       <Navbar {selected} onselect = {HandelSelect}/>
