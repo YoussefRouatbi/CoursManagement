@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "lucide-svelte": "^0.548.0",
+    "svelte-heros": "^8.0.0"
+  }
+}
