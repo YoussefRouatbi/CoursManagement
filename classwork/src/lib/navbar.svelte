@@ -15,7 +15,7 @@
     </div>
     <div class="space-y-3">
         <div class = {selected === 'Algorithme' ? "shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] w-full scale-110 text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2" : "text-center hover:bg-white/10 transition-all ease-in-out cursor-pointer p-3 rounded-md duration-300 flex col space-x-2"} on:click={() => select('Algorithme')}>
-            <h2 class="text-white text-xl text-start w-full">Algorithme</h2><img class="w-8" src="/public/pc.png" alt="pc">
+            <h2 class="text-white text-xl text-start w-full">Algo</h2><img class="w-8" src="/public/pc.png" alt="pc">
         </div>
         <div class = {selected === 'STI' ? "shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] w-full scale-110 text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2" : "text-center hover:bg-white/10 transition-all ease-in-out cursor-pointer p-3 rounded-md duration-300 flex col space-x-2"} on:click={() => select('STI')}>
             <h2 class="text-white text-xl text-start w-full">STI</h2><img class="w-8" src="/public/sti.png" alt="sti">
@@ -43,8 +43,8 @@
             <div class="shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:bg-white/5 w-full text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2">
                 <h2 class="text-white text-xl text-start w-full">Logout</h2><img class="w-8" src="/public/logout.png" alt="pc">
             </div>
-            <div class="shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:bg-white/5 w-full text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2">
-                <h2 class="text-white text-xl text-start w-full" on:click={() => window.open('/about.html', '_blank')}>About Us</h2><img class="w-8" src="/public/abt2.png" alt="pc">
+            <div on:click={() => window.open('/about.html', '_blank')} class="shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:bg-white/5 w-full text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2">
+                <h2 class="text-white text-xl text-start w-full">About Us</h2><img class="w-8" src="/public/abt2.png" alt="pc">
             </div>
         </div>
     </div>
