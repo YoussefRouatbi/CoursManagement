@@ -1,46 +1,69 @@
 <script>
-    import Form from "./form.svelte";
-    import { Search } from "lucide-svelte";
-    export {selected}
-    let showModal = false;
-    function openModal() {
-        showModal = true;
+  import Form from "./form.svelte";
+  import { Search } from "lucide-svelte";
+  import { onMount } from "svelte";
+  let showModal = false;
+  let cours = []; // will come from backend
+  let searchKey = '';
+  let selected = '';
+  let itemopt = '';
+  let itemlng = '';
+  let types = '';
+  let selectedMatier = 'Algorithme'; // from navbar
+
+$: filteredCourses = cours.filter(c => {
+    // Search by title
+    const matchSearch = c.title?.toLowerCase().includes(searchKey.toLowerCase());
+
+    // Filter by type select (All / Video / PDF)
+    const matchType = types ? c.file_type === types : true;
+
+    // Filter by selected matier from navbar
+    const matchMatier = c.matier_name === selectedMatier;
+
+    return matchSearch && matchType && matchMatier;
+});
+
+  // ✅ Fetch all courses
+  async function fetchCourses() {
+    try {
+      const res = await fetch("http://127.0.0.1:5000/getCourses");
+      if (!res.ok) throw new Error("Failed to fetch courses");
+      cours = await res.json();
+      console.log("Fetched courses:", cours);
+    } catch (err) {
+      console.error("Error fetching courses:", err);
     }
-    function handleModalClose() {
-        console.log('Modal closed!');
+  }
+
+  // ✅ When component mounts
+  onMount(() => {
+    fetchCourses();
+  });
+
+  // Modal logic
+  function openModal() {
+    showModal = true;
+  }
+
+  function handleModalClose() {
+    console.log("Modal closed!");
+    fetchCourses(); // refresh after adding new course
+  }
+
+  $: cour = cours.filter(c => {
+  const matchSearch = c.title?.toLowerCase().includes(searchKey.toLowerCase());
+  const matchType = types ? c.file_type === types : true; // use file_type from backend
+  return matchSearch && matchType; // remove langdoc filters for now
+});
+
+  $: if (selected) {
+    if (selected === 'Language') {
+      itemlng = '';
+    } else if (selected === 'Options') {
+      itemopt = '';
     }
-    let cours = [
-    { id: 1, title: "Mathematics 101", subtitle: "Basic algebra and calculus", type: "vd", langdoc: "english" },
-    { id: 2, title: "Physics Fundamentals", subtitle: "Mechanics and thermodynamics", type: "pdf", langdoc: "english" },
-    { id: 3, title: "Chemistry Intro", subtitle: "Organic and inorganic chemistry", type: "vd", langdoc: "french" },
-    { id: 4, title: "Programming in Svelte", subtitle: "Learn Svelte for web apps", type: "vd", langdoc: "english" },
-    { id: 5, title: "Biology Basics", subtitle: "Study of living organisms", type: "pdf", langdoc: "french" },
-    { id: 6, title: "World History", subtitle: "History overview from 1800s", type: "pdf", langdoc: "english" },
-    { id: 7, title: "English Grammar", subtitle: "Tenses, syntax, and punctuation", type: "vd", langdoc: "english" },
-    { id: 8, title: "French Literature", subtitle: "Classic works and analysis", type: "pdf", langdoc: "french" },
-    { id: 9, title: "Web Development", subtitle: "HTML, CSS, JS basics", type: "vd", langdoc: "english" },
-    { id: 10, title: "Machine Learning Intro", subtitle: "AI and ML concepts", type: "vd", langdoc: "english" }
-  ];
-    let searchKey = '';
-    let selected = '';
-    let itemopt = ''
-    let itemlng = ''
-    let types = ''
-    $: cour = cours.filter(c => {
-        const matchSearch = c.title.toLowerCase().includes(searchKey.toLowerCase());
-        const matchType = types ? c.type === types : true;
-        let matchSujet = true;
-        if(selected === 'Language') matchSujet = itemlng ? c.langdoc === itemlng : true;
-        else if(selected === 'Options') matchSujet = itemopt ? c.langdoc === itemopt : true;
-        return matchSearch && matchType && matchSujet;
-        });
-     $: if (selected) {
-            if (selected === 'Language') {
-            itemlng = '';
-        } else if (selected === 'Options') {
-            itemopt = ''; 
-        }
-        types = ''
+    types = '';
   }
 </script>
 <main class="relative bg-slate-900 border border-white/10 shadow-lg w-full mt-[50px] rounded-lg min-h-[calc(100vh-60px)] p-6 md:p-8 backdrop-blur-md">
@@ -81,12 +104,16 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 place-items-center w-full max-w-[1400px] pt-5">
         {#each cour as c}
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 shadow-md rounded-2xl w-full h-40 flex flex-col justify-center items-center text-white text-lg font-semibold hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] transition-transform duration-300">
-                <h3 class="text-lg font-semibold mb-2">{c.title}</h3>
-                <p class="text-sm text-white/70">{c.subtitle}</p>
-            </div>
-       {/each}
+  <div
+    class="bg-white/10 backdrop-blur-sm border border-white/20 shadow-md rounded-2xl w-full h-40 flex flex-col justify-center items-center text-white text-lg font-semibold hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300"
+    on:click={() => window.open(c.file_path, "_blank")}
+  >
+    <h3 class="text-lg font-semibold mb-2">{c.title}</h3>
+    <p class="text-sm text-white/70">{c.subtitle}</p>
+  </div>
+{/each}
     </div>
+    
 
     <button on:click={openModal} class="absolute bottom-6 right-8 backdrop-blur-3xl bg-white/10 shadow-xl border border-white/20 
         rounded-full flex justify-center items-center text-white hover:scale-110 transition-transform duration-300 cursor-pointer p-4 size-16">

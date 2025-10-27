@@ -5,7 +5,8 @@ CREATE TABLE course (
     idc INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(30) NOT NULL,
     subtitle TEXT,
-    file_path VARCHAR(255)
+    file_path VARCHAR(255),
+    file_type VARCHAR(20) NOT NULL
 );
 
 
