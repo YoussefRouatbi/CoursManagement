@@ -1,7 +1,26 @@
 <script>
+    import Form from "./form.svelte";
     import { Search } from "lucide-svelte";
     export {selected}
-    let cours = [];
+    let showModal = false;
+    function openModal() {
+        showModal = true;
+    }
+    function handleModalClose() {
+        console.log('Modal closed!');
+    }
+    let cours = [
+    { id: 1, title: "Mathematics 101", subtitle: "Basic algebra and calculus", type: "vd", langdoc: "english" },
+    { id: 2, title: "Physics Fundamentals", subtitle: "Mechanics and thermodynamics", type: "pdf", langdoc: "english" },
+    { id: 3, title: "Chemistry Intro", subtitle: "Organic and inorganic chemistry", type: "vd", langdoc: "french" },
+    { id: 4, title: "Programming in Svelte", subtitle: "Learn Svelte for web apps", type: "vd", langdoc: "english" },
+    { id: 5, title: "Biology Basics", subtitle: "Study of living organisms", type: "pdf", langdoc: "french" },
+    { id: 6, title: "World History", subtitle: "History overview from 1800s", type: "pdf", langdoc: "english" },
+    { id: 7, title: "English Grammar", subtitle: "Tenses, syntax, and punctuation", type: "vd", langdoc: "english" },
+    { id: 8, title: "French Literature", subtitle: "Classic works and analysis", type: "pdf", langdoc: "french" },
+    { id: 9, title: "Web Development", subtitle: "HTML, CSS, JS basics", type: "vd", langdoc: "english" },
+    { id: 10, title: "Machine Learning Intro", subtitle: "AI and ML concepts", type: "vd", langdoc: "english" }
+  ];
     let searchKey = '';
     let selected = '';
     let itemopt = ''
@@ -11,8 +30,8 @@
         const matchSearch = c.title.toLowerCase().includes(searchKey.toLowerCase());
         const matchType = types ? c.type === types : true;
         let matchSujet = true;
-        if(selected === 'Language') matchSujet = itemlng ? c.sujet === itemlng : true;
-        else if(selected === 'Options') matchSujet = itemopt ? c.sujet === itemopt : true;
+        if(selected === 'Language') matchSujet = itemlng ? c.langdoc === itemlng : true;
+        else if(selected === 'Options') matchSujet = itemopt ? c.langdoc === itemopt : true;
         return matchSearch && matchType && matchSujet;
         });
      $: if (selected) {
@@ -69,8 +88,9 @@
        {/each}
     </div>
 
-    <button class="absolute bottom-6 right-8 backdrop-blur-3xl bg-white/10 shadow-xl border border-white/20 
+    <button on:click={openModal} class="absolute bottom-6 right-8 backdrop-blur-3xl bg-white/10 shadow-xl border border-white/20 
         rounded-full flex justify-center items-center text-white hover:scale-110 transition-transform duration-300 cursor-pointer p-4 size-16">
         <img class="w-6 h-6" src="/public/plus.png" alt="add">
     </button>
+    <Form bind:show = {showModal} onClose = {handleModalClose}/>
 </main>

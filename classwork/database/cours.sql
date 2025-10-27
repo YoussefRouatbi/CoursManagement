@@ -1,15 +1,32 @@
-Create DataBase coursemanagement
-create Table course{
-    idc int(4) constraint pk_id primary key;
-    nomc varchar(15) Not Null ;
+Create DataBase coursemanagement;
+use coursemanagement;
+
+CREATE TABLE course (
+    idc INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(30) NOT NULL,
+    subtitle TEXT,
+    file_path VARCHAR(255)
+);
 
 
-};
-Create Table eleve{
-    idc int(4);
-    ide int(4);
-    Primary key(idc,ide)
-    npe varchar(15) Check('A'<=npe<='Z')
-    foreign key idc References course(idc);
+Create Table users(
+    idu int auto_increment primary key,
+    email varchar(255) not null,
+    username varchar(15) not null,
+    user_password varchar(255) not null,
+    date_insc date default current_date
+);
 
-}
+create table matier(
+    idm int auto_increment primary key,
+    nameMatier varchar(20) check(nameMatier in ('algo','sti','math','phy','lang','opt'))
+);
+
+create table matierCour(
+    idm int,
+    idc int,
+    primary key(idm,idc),
+    foreign key (idm) references matier(idm) on delete cascade on update cascade,
+    foreign key (idc) references course(idc) on delete cascade on update cascade,
+    date_added date default current_date
+);
