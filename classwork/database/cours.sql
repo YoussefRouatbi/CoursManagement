@@ -12,7 +12,6 @@ CREATE TABLE course (
 
 Create Table users(
     idu int auto_increment primary key,
-    email varchar(255) not null,
     username varchar(15) not null,
     user_password varchar(255) not null,
     date_insc date default current_date
