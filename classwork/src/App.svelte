@@ -2,7 +2,7 @@
   import Header from "./lib/header.svelte";
   import Navbar from "./lib/navbar.svelte";
   import Main from "./lib/main.svelte";
-
+  import Login from "./lib/login.svelte";
   let username = "Habib";
   let profileImg = "public/profile.png";
   let opned = true;
@@ -16,7 +16,7 @@
   }
 </script>
 
-<div
+<!--<div
   class="overflow-y-auto min-h-screen flex flex-col overflow-hidden bg-linear-to-b from-slate-800 via-slate-900 to-slate-950"
 >
   <div class="z-40">
@@ -27,7 +27,8 @@
       <Navbar onselect={HandelSelect} />
     {/if}
     <div class="flex flex-1 p-5">
-      <Main  />
+      <Main {selected} />
     </div>
   </div>
-</div>
+</div>-->
+<Login></Login>

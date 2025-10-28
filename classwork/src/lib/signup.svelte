@@ -3,16 +3,21 @@
     import { onMount } from 'svelte';
 
     let show = false;
-
     let username = '';
     let email = '';
     let password = '';
+    let confirmPassword = '';
 
     onMount(() => {
         show = true;
     });
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
         console.log({ username, email, password });
     };
 </script>
@@ -20,8 +25,7 @@
 {#if show}
 <section class="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center">
     <div 
-        class="bg-slate-900/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md"
-        transition:fly={{ y: 50, duration: 500 }}>
+        class="bg-slate-900/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md" transition:fly={{ y: 50, duration: 500 }}>
         <div class="flex justify-center mb-6">
             <img src="./public/profile.png" alt="Profile" class="w-24 h-24 rounded-full border-4 border-cyan-500" />
         </div>
@@ -44,14 +48,20 @@
                     class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
             </div>
 
+            <div>
+                <label class="block text-slate-200 mb-1">Confirm Password</label>
+                <input type="password" bind:value={confirmPassword} placeholder="Confirm your password" 
+                    class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
+            </div>
+
             <button type="submit" 
                 class="w-full py-3 shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:scale-104 cursor-pointer rounded-lg text-white font-semibold transition">
-                Login
+                Sign Up
             </button>
         </form>
 
         <p class="text-slate-400 text-center mt-4 text-sm">
-            Don't have an account? <a href="/signup" class="text-cyan-500 hover:underline">Sign Up</a>
+            Already have an account? <a href="/login" class="text-cyan-500 hover:underline">Login</a>
         </p>
     </div>
 </section>

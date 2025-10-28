@@ -2,59 +2,26 @@
   import Form from "./form.svelte";
   import { Search } from "lucide-svelte";
   import { onMount } from "svelte";
+  export {selected}
   let showModal = false;
-  let cours = []; // will come from backend
+  let cours = [];
   let searchKey = '';
   let selected = '';
   let itemopt = '';
   let itemlng = '';
   let types = '';
-  let selectedMatier = 'Algorithme'; // from navbar
-
-$: filteredCourses = cours.filter(c => {
-    // Search by title
-    const matchSearch = c.title?.toLowerCase().includes(searchKey.toLowerCase());
-
-    // Filter by type select (All / Video / PDF)
-    const matchType = types ? c.file_type === types : true;
-
-    // Filter by selected matier from navbar
-    const matchMatier = c.matier_name === selectedMatier;
-
-    return matchSearch && matchType && matchMatier;
-});
-
-  // ✅ Fetch all courses
-  async function fetchCourses() {
-    try {
-      const res = await fetch("http://127.0.0.1:5000/getCourses");
-      if (!res.ok) throw new Error("Failed to fetch courses");
-      cours = await res.json();
-      console.log("Fetched courses:", cours);
-    } catch (err) {
-      console.error("Error fetching courses:", err);
-    }
-  }
-
-  // ✅ When component mounts
-  onMount(() => {
-    fetchCourses();
-  });
-
-  // Modal logic
   function openModal() {
     showModal = true;
   }
 
   function handleModalClose() {
     console.log("Modal closed!");
-    fetchCourses(); // refresh after adding new course
   }
 
   $: cour = cours.filter(c => {
   const matchSearch = c.title?.toLowerCase().includes(searchKey.toLowerCase());
-  const matchType = types ? c.file_type === types : true; // use file_type from backend
-  return matchSearch && matchType; // remove langdoc filters for now
+  const matchType = types ? c.file_type === types : true;
+  return matchSearch && matchType;
 });
 
   $: if (selected) {
