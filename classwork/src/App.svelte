@@ -2,9 +2,10 @@
   import Header from "./lib/header.svelte";
   import Navbar from "./lib/navbar.svelte";
   import Main from "./lib/main.svelte";
-  import Login from "./lib/login.svelte";
-
-
+  import Login from './lib/login.svelte';
+  import Signup from './lib/signup.svelte';
+  
+  let currentPage = 'login';
   let username = "Habib";
   let profileImg = "public/profile.png";
   let opned = true;
@@ -33,4 +34,8 @@
     </div>
   </div>
 </div>-->
-<Login></Login>
+{#if currentPage === 'login'}
+  <Login on:goToSignup={() => currentPage = 'signup'} />
+{:else if currentPage === 'signup'}
+  <Signup on:goToLogin={() => currentPage = 'login'} />
+{/if}

@@ -1,7 +1,8 @@
 <script>
     import { fly, fade } from 'svelte/transition';
     import { onMount } from 'svelte';
-
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     let show = false;
     let username = '';
     let email = '';
@@ -61,7 +62,7 @@
         </form>
 
         <p class="text-slate-400 text-center mt-4 text-sm">
-            Already have an account? <a href="/login" class="text-cyan-500 hover:underline">Login</a>
+            Already have an account? <a on:click={() => dispatch('goToLogin')} class="text-cyan-500 hover:underline cursor-pointer">Login</a>
         </p>
     </div>
 </section>

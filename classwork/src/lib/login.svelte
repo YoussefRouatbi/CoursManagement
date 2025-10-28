@@ -1,9 +1,9 @@
 <script>
     import { fly, fade } from 'svelte/transition';
     import { onMount } from 'svelte';
-
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     let show = false;
-
     let username = '';
     let email = '';
     let password = '';
@@ -14,7 +14,11 @@
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log({ username, email, password });
+        VerifInfo(username,email,password)
     };
+    function VerifInfo(username,email,password){
+        
+    }
 </script>
 
 {#if show}
@@ -44,14 +48,14 @@
                     class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
             </div>
 
-            <button type="submit" 
+            <button type="submit" on:click={VerifInfo}
                 class="w-full py-3 shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:scale-104 cursor-pointer rounded-lg text-white font-semibold transition">
                 Login
             </button>
         </form>
 
         <p class="text-slate-400 text-center mt-4 text-sm">
-            Don't have an account? <a href="/signup" class="text-cyan-500 hover:underline">Sign Up</a>
+            Don't have an account? <a class="text-cyan-500 hover:underline cursor-pointer" on:click={() => dispatch('goToSignup')}>Sign Up</a>
         </p>
     </div>
 </section>
