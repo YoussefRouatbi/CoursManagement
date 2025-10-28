@@ -5,23 +5,58 @@
     const dispatch = createEventDispatcher();
     let show = false;
     let username = '';
-    let email = '';
     let password = '';
+    let loader = false;
 
     onMount(() => {
         show = true;
     });
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ username, email, password });
-        VerifInfo(username,email,password)
+        if (!VerifInfo(username)){
+            alert('verify your username');
+            username = '';
+            return;
+        }
+        LoginUser();
     };
-    function VerifInfo(username,email,password){
-        
+
+    function VerifInfo(username){
+        if (username.length > 15) return false;
+        const pattern = /^[A-Za-z][A-Za-z0-9_]*$/;
+        return pattern.test(username);
+    }
+
+    async function LoginUser(){
+        loader = true;
+        const formData = new FormData()
+        formData.append('username',username);
+        formData.append('password',password);
+        try{
+            const res = await fetch('http://127.0.0.1:5000/login', {
+                method: 'POST',
+                body: formData
+            });
+            if(!res.ok) throw new Error('User Not found')
+            const data = await res.json();
+            alert(data.message);
+        }catch(e){
+            alert(e)
+        }
+        finally{
+            loader = false
+        }
     }
 </script>
-
-{#if show}
+{#if loader}
+    <div class="min-h-screen flex flex-row gap-2 justify-center items-center bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
+        <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce"></div>
+        <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce [animation-delay:-.3s]"></div>
+        <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce [animation-delay:-.5s]"></div>
+    </div>
+{/if}
+{#if !loader}
 <section class="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center">
     <div 
         class="bg-slate-900/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md"
@@ -35,13 +70,6 @@
                 <input type="text" bind:value={username} placeholder="Enter your username" 
                     class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
             </div>
-
-            <div>
-                <label class="block text-slate-200 mb-1">Email</label>
-                <input type="email" bind:value={email} placeholder="Enter your email" 
-                    class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
-            </div>
-
             <div>
                 <label class="block text-slate-200 mb-1">Password</label>
                 <input type="password" bind:value={password} placeholder="Enter your password" 
