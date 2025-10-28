@@ -1,11 +1,12 @@
 <script>
   import { fade, fly } from 'svelte/transition';
   export let onselect;
+  export {selected};
   let selected = 'Algorithme';
 
   function select(item) {
     selected = item;
-    onselect(selected); // emit selected matier to parent
+    onselect(selected);
   }
 </script>
 
@@ -35,7 +36,6 @@
         </div>
     </div>
 
-    <!-- settings unchanged -->
     <div class="mt-[100px] text-white text-xl">
         <div>
             <h1 class="text-white text-2xl">Settings</h1>
