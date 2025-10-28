@@ -6,10 +6,17 @@
   let showModal = false;
   let cours = [];
   let searchKey = '';
-  let selected = '';
+  let selected = 'Algorithme';
   let itemopt = '';
   let itemlng = '';
   let types = '';
+
+$: filteredCourses = cours.filter(c => {
+    const matchSearch = c.title?.toLowerCase().includes(searchKey.toLowerCase());
+    const matchType = types ? c.file_type === types : true;
+    const matchMatier = c.matier_name === selected;
+    return matchSearch && matchType && matchMatier;
+});
   function openModal() {
     showModal = true;
   }

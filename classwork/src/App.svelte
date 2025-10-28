@@ -3,6 +3,8 @@
   import Navbar from "./lib/navbar.svelte";
   import Main from "./lib/main.svelte";
   import Login from "./lib/login.svelte";
+
+
   let username = "Habib";
   let profileImg = "public/profile.png";
   let opned = true;
