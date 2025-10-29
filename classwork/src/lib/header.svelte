@@ -3,7 +3,7 @@
   import { createEventDispatcher } from "svelte";
   export { username, profileImg, opned };
   let username = "";
-  let profileImg = "";
+  let profileImg = "public/profile.png";
   let opned = true;
   const dispatch = createEventDispatcher();
   function toggleNav() {

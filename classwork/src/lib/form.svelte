@@ -2,7 +2,6 @@
   export let show = false;
   export let onClose = () => {};
   
-  // matier options hardcoded to match your SQL CHECK constraint
   const matiers = ['algo', 'sti', 'math', 'phy', 'lang', 'opt'];
   let selectedMatier = '';
 
@@ -20,45 +19,6 @@
   function handleFileSelect(e) {
     file = e.target.files[0];
   }
-
-  async function handleSubmit() {
-    try {
-      let uploadedUrl = fileUrl;
-
-      if (typeS === 'dc' && file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        const uploadRes = await fetch('http://127.0.0.1:5000/upload', {
-          method: 'POST',
-          body: formData
-        });
-        const uploadData = await uploadRes.json();
-        if (!uploadRes.ok) throw new Error(uploadData.error || "Upload failed");
-        uploadedUrl = uploadData.url;
-      }
-
-      const data = new URLSearchParams();
-      data.append('title', title);
-      data.append('subtitle', subtitle);
-      data.append('file', uploadedUrl);
-      data.append('type', typeS);
-      data.append('matierName', selectedMatier);
-
-      const saveRes = await fetch('http://127.0.0.1:5000/saveData', {
-        method: 'POST',
-        body: data
-      });
-
-      const saveData = await saveRes.json();
-      if (!saveRes.ok) throw new Error(saveData.error || "Failed to save course");
-
-      alert("Course added successfully!");
-      closeModal();
-    } catch (err) {
-      console.error("Error:", err);
-      alert("Error: " + err.message);
-    }
-  }
 </script>
 
 {#if show}
@@ -68,7 +28,7 @@
     <h2 class="text-center text-white text-xl font-bold mb-1">Add Course</h2>
     <p class="text-center text-sm text-white/50 mb-4">Share your course with your friends</p>
 
-    <form on:submit|preventDefault={handleSubmit}>
+    <form on:submit|preventDefault>
       <div class="border border-white/10 rounded-md p-4">
         <input type="text" bind:value={title} placeholder="Title" class="bg-slate-900 text-white border border-white/20 rounded-lg p-3 w-full mb-2" required>
         <input type="text" bind:value={subtitle} placeholder="Subtitle (optional)" class="bg-slate-900 text-white border border-white/20 rounded-lg p-3 w-full mb-2">

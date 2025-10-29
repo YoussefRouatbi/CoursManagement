@@ -1,30 +1,84 @@
 <script>
     import { fly, fade } from 'svelte/transition';
-    import { onMount } from 'svelte';
     import { createEventDispatcher } from 'svelte';
+    import Alert from './alert.svelte';
     const dispatch = createEventDispatcher();
     let show = false;
     let username = '';
-    let email = '';
     let password = '';
     let confirmPassword = '';
-
-    onMount(() => {
-        show = true;
-    });
+    let loader = false
+    let msg = '';
+    let succes = true;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
+        if(!VerifInfo(username)){
+            msg = "Please Check your username";
+            show = true;
+            succes = false;
+            return
         }
-        console.log({ username, email, password });
+        else if (password !== confirmPassword) {
+            msg = "Passwords do not match!";
+            show = true;
+            succes = false;
+            setTimeout(() => {
+                show = false
+            }, 2000);
+            return
+        }
+        SignUp();
     };
-</script>
 
-{#if show}
-<section class="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center">
+    function VerifInfo(username){
+        if (username.length > 15) return false;
+        const pattern = /^[A-Za-z][A-Za-z0-9_]*$/;
+        return pattern.test(username);
+    }
+
+    async function SignUp(){
+        loader = true
+        const dataForm = new FormData()
+        dataForm.append('username',username);
+        dataForm.append('password',password);
+        try{
+            const res = await fetch('http://127.0.0.1:5000/signup',{
+                    method : 'POST',
+                    body : dataForm
+            });
+            const data = await res.json();
+            if(!res.ok) throw new Error(data.message)
+            msg = data.message;
+            succes = true;
+            show = true;
+            dispatch('auth_singedup')
+        }
+        catch(e){
+            msg = e
+            succes = false;
+            show = true;
+            
+        }
+        finally{
+            loader = false
+            setTimeout(() => {
+                show = false
+            }, 2000);
+        }
+    }
+</script>
+<Alert {show} {msg} {succes}/>
+{#if loader}
+    <div class="min-h-screen flex flex-row gap-2 justify-center items-center bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
+        <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce"></div>
+        <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce [animation-delay:-.3s]"></div>
+        <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce [animation-delay:-.5s]"></div>
+    </div>
+{/if}
+{#if !loader}
+<section class="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 min-h-screen flex flex-col items-center justify-center">
+    <h1 class="text-center text-5xl text-white font-bold mb-5">Sign up</h1>
     <div 
         class="bg-slate-900/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md" transition:fly={{ y: 50, duration: 500 }}>
         <div class="flex justify-center mb-6">
@@ -34,12 +88,6 @@
             <div>
                 <label class="block text-slate-200 mb-1">Username</label>
                 <input type="text" bind:value={username} placeholder="Enter your username" 
-                    class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
-            </div>
-
-            <div>
-                <label class="block text-slate-200 mb-1">Email</label>
-                <input type="email" bind:value={email} placeholder="Enter your email" 
                     class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
             </div>
 

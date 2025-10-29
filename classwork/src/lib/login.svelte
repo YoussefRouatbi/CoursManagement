@@ -1,22 +1,24 @@
 <script>
+    import Alert from './alert.svelte';
     import { fly, fade } from 'svelte/transition';
-    import { onMount } from 'svelte';
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
     let show = false;
     let username = '';
     let password = '';
     let loader = false;
-
-    onMount(() => {
-        show = true;
-    });
-
+    let msg = '';
+    let succes = true;
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!VerifInfo(username)){
-            alert('verify your username');
-            username = '';
+            msg = 'Please Check your username';
+            show = true;
+            succes = false
+            loader = false
+            setTimeout(() => {
+                show = false
+            }, 2000);
             return;
         }
         LoginUser();
@@ -36,19 +38,31 @@
         try{
             const res = await fetch('http://127.0.0.1:5000/login', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                credentials: 'include'
             });
-            if(!res.ok) throw new Error('User Not found')
             const data = await res.json();
-            alert(data.message);
+            if(!res.ok) throw new Error(data.message)
+            msg = data.message
+            succes = true
+            show = true
+            dispatch('authSuccess',{username: data.username})
         }catch(e){
-            alert(e)
+            succes = false
+            show = true
+            msg = e
         }
         finally{
             loader = false
+            setTimeout(() => {
+                show = false
+            }, 2000);
         }
     }
 </script>
+
+<Alert {show} {msg} {succes}/>
+
 {#if loader}
     <div class="min-h-screen flex flex-row gap-2 justify-center items-center bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
         <div class="w-8 h-8 rounded-full bg-blue-800 animate-bounce"></div>
@@ -57,7 +71,8 @@
     </div>
 {/if}
 {#if !loader}
-<section class="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 min-h-screen flex items-center justify-center">
+<section class="bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 min-h-screen flex flex-col items-center justify-center">
+    <h1 class="text-center text-5xl text-white font-bold mb-5">Login</h1>
     <div 
         class="bg-slate-900/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md"
         transition:fly={{ y: 50, duration: 500 }}>

@@ -16,7 +16,7 @@
   }
 
   function handleModalClose() {
-    console.log("Modal closed!");
+    return
   }
 
   $: cour = cours.filter(c => {
