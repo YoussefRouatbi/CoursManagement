@@ -3,6 +3,7 @@ from flask_cors import CORS
 from connect_db import connect_database
 
 auth_user_signup = Blueprint('auth_user_signup', __name__)
+CORS(auth_user_signup)
 
 @auth_user_signup.route('/signup',methods = ['POST'])
 def AddUser():

@@ -4,6 +4,7 @@ from flask_cors import CORS
 
 
 auth_user  = Blueprint('auth_user',__name__)
+CORS(auth_user)
 
 def is_logged_in():
     return 'username' in session

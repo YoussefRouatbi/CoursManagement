@@ -51,8 +51,11 @@
             if(!res.ok) throw new Error(data.message)
             msg = data.message;
             succes = true;
-            show = true;
-            dispatch('auth_singedup')
+            show = true
+            setTimeout(() => {
+                dispatch('auth_singedup')
+                show = false;
+            }, 2000);
         }
         catch(e){
             msg = e
