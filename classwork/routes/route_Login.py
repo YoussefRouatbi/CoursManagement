@@ -4,7 +4,6 @@ from flask_cors import CORS
 
 
 auth_user  = Blueprint('auth_user',__name__)
-CORS(auth_user)
 
 def is_logged_in():
     return 'username' in session
@@ -14,7 +13,7 @@ def upload_user():
     username = request.form.get('username')
     password = request.form.get('password')
     if is_logged_in():
-        return jsonify({'message':f'User {session['username']} already logged in'}), 200
+        return jsonify({'message':f"User {session['username']} already logged in"}), 200
     if not username or not password:
         return jsonify({'message': 'Username and password required'}), 400
     conn = connect_database()

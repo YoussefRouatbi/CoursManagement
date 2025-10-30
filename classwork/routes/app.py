@@ -14,11 +14,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE="None",
     SESSION_COOKIE_SECURE=False
 )
-CORS(
-    app,
-    origins=["http://localhost:5173", "http://localhost:5174"],
-    supports_credentials=True
-)
+CORS(app,supports_credentials=True)
 
 
 app.register_blueprint(auth_user)
