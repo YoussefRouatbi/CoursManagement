@@ -27,4 +27,4 @@ def upload_user():
     session.permanent = True
     session['username'] = username
     print(session)
-    return jsonify({'message' : 'User logged in successfully', 'username' : username}),200
+    return jsonify({'message' : 'User logged in successfully', 'username' : rows[0][1]}),200

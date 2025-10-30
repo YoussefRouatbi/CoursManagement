@@ -6,7 +6,8 @@ CREATE TABLE course (
     title VARCHAR(30) NOT NULL,
     subtitle TEXT,
     file_path VARCHAR(255),
-    file_type VARCHAR(20) NOT NULL
+    file_type VARCHAR(20) NOT NULL,
+    idm int references matier(idm) on delete cascade on update cascade
 );
 
 
@@ -20,13 +21,4 @@ Create Table users(
 create table matier(
     idm int auto_increment primary key,
     nameMatier varchar(20) check(nameMatier in ('algo','sti','math','phy','lang','opt'))
-);
-
-create table matierCour(
-    idm int,
-    idc int,
-    primary key(idm,idc),
-    foreign key (idm) references matier(idm) on delete cascade on update cascade,
-    foreign key (idc) references course(idc) on delete cascade on update cascade,
-    date_added date default current_date
 );

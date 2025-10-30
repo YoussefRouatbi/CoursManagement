@@ -3,7 +3,7 @@
   export let onselect;
   export {selected};
   let selected = 'Algorithme';
-
+  
   function select(item) {
     selected = item;
     onselect(selected);
