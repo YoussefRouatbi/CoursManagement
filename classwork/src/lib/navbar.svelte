@@ -42,7 +42,7 @@
             <hr class="text-white w-full mt-1 mb-3">
         </div>
         <div class="flex flex-col space-y-10">
-            <div class="shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:bg-white/5 w-full text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2">
+            <div  on:click={openPopup} class="shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:bg-white/5 w-full text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2">
                 <h2 class="text-white text-xl text-start w-full">Logout</h2><img class="w-8" src="/public/logout.png" alt="pc">
             </div>
             <div on:click={() => window.open('/about.html', '_blank')} class="shadow-[0_0_20px_rgba(255,255,255,0.2),0_0_30px_rgba(59,130,246,0.4)] hover:bg-white/5 w-full text-center backdrop-blur-3xl border border-white/20 bg-white/10 shadow-3xl transition-out ease cursor-pointer p-3 rounded-md duration-500 flex col space-x-2">
