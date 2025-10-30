@@ -7,7 +7,7 @@ from datetime import timedelta
 
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key"
+app.secret_key = "b7bc4ec03115df426f9fb29bdb7bf3feb90fbc144f74afc25684b909fe783f6e"
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days = 4)
 
 app.config.update(
