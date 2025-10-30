@@ -5,7 +5,9 @@
   import Main from "./lib/main.svelte";
   import Login from './lib/login.svelte';
   import Signup from './lib/signup.svelte';
+  import AlertLogout from "./lib/alertLogout.svelte";
 
+  let pop = false
   let currentPage = 'login';
   let username = "Fakeuser";
   let opned = true;
@@ -59,13 +61,14 @@
     </div>
     <div class="flex flex-1 overflow-hidden">
       {#if opned}
-        <Navbar onselect={HandelSelect} />
+        <Navbar onselect={HandelSelect} on:onLogout = {() => pop = true}/>
       {/if}
       <div class="flex flex-1 p-5">
         <Main {selected} />
       </div>
     </div>
   </div>
+  <AlertLogout {pop} {username} on:logout = {() => (currentPage = 'login', pop = false)} on:cancel = {() => (currentPage = 'app', pop = false)}/>
 {:else if currentPage === 'login'}
   <Login 
     on:goToSignup={() => currentPage = 'signup'} 

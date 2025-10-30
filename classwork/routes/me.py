@@ -9,3 +9,8 @@ def me():
         return jsonify({'username': session['username']}), 200
     print(session)
     return jsonify({'username':None}), 401
+
+@me_bp.route('/logout', methods = ['POST'])
+def Logout():
+    session.clear()
+    return jsonify({'message':'logout succesfuly'}),200
