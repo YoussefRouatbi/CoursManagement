@@ -5,11 +5,12 @@ from route_signup import auth_user_signup
 from route_upload import upload_content
 from me import me_bp
 from datetime import timedelta
+from dotenv import load_dotenv
 import os
-
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "b7bc4ec03115df426f9fb29bdb7bf3feb90fbc144f74afc25684b909fe783f6e"
+app.secret_key = os.getenv('SECRET_KEY')
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days = 4)
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'courses')
