@@ -6,6 +6,7 @@
   import Login from './lib/login.svelte';
   import Signup from './lib/signup.svelte';
   import AlertLogout from "./lib/alertLogout.svelte";
+  import Form from "./lib/form.svelte";
 
   let pop = false
   let currentPage = 'login';
@@ -13,6 +14,7 @@
   let opned = true;
   let selected = "Algorithme";
   let loading = false;
+  let selectedMatier = selected
 
   onMount(async () => {
     try{
@@ -61,10 +63,10 @@
     </div>
     <div class="flex flex-1 overflow-hidden">
       {#if opned}
-        <Navbar onselect={HandelSelect} on:onLogout = {() => pop = true}/>
+        <Navbar  onselect={HandelSelect} on:onLogout = {() => pop = true}/>
       {/if}
       <div class="flex flex-1 p-5">
-        <Main {selected} />
+        <Main {selected}/>
       </div>
     </div>
   </div>
@@ -80,3 +82,4 @@
     on:auth_singedup={() => currentPage = 'login'} 
   />
 {/if}
+

@@ -1,8 +1,11 @@
 <script>
   import Alert from "./alert.svelte";
   export let shown = true;
+  export {selectedMatier}
   export let onClose = () => {};
-  
+  import { createEventDispatcher } from "svelte";
+
+  const disptach = createEventDispatcher();
   const matiers = ['Algorithme', 'STI', 'Math', 'Physique', 'Language', 'Options'];
   let selectedMatier = '';
   let file = null;

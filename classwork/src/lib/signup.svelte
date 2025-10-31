@@ -1,8 +1,13 @@
 <script>
     import { fly, fade } from 'svelte/transition';
     import { createEventDispatcher } from 'svelte';
+    import CheckPassword from './checkPassword.svelte';
+    import PassEye from './passEye.svelte';
     import Alert from './alert.svelte';
+    import Pass from './passEye.svelte';
+    
     const dispatch = createEventDispatcher();
+    let showPassword = false;
     let show = false;
     let username = '';
     let password = '';
@@ -10,7 +15,6 @@
     let loader = false
     let msg = '';
     let succes = true;
-
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!VerifInfo(username)){
@@ -94,11 +98,13 @@
                     class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
             </div>
 
-            <div>
-                <label class="block text-slate-200 mb-1">Password</label>
-                <input type="password" bind:value={password} placeholder="Enter your password" 
-                    class="w-full p-3 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
+            <div class="relative">
+                <label class="block text-slate-200 mb-1 ">Password</label>
+                <input type={showPassword ? 'text' : 'password'} bind:value={password} placeholder="Enter your password" 
+                    class="w-full p-3 pr-10 rounded-lg bg-slate-800 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500" required />
+                <PassEye bind:showPassword/>
             </div>
+            <div class={password ? '' : 'hidden'}><CheckPassword {password}/></div>
 
             <div>
                 <label class="block text-slate-200 mb-1">Confirm Password</label>
