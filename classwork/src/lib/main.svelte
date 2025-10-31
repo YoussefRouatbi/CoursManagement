@@ -1,12 +1,12 @@
 <script>
   import Form from "./form.svelte";
-  import { Search } from "lucide-svelte";
+  import { Search, ExternalLink } from "lucide-svelte";
   import { onMount } from "svelte";
   export {selected}
 
   let showModal = false;
   let searchKey = '';
-  let course = []
+  let course = [];
   let selected = 'Algorithme';
   let itemopt = '';
   let itemlng = '';
@@ -53,7 +53,6 @@
     getCourses();
     return
   }
-
 </script>
 
 
@@ -97,17 +96,14 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 place-items-center w-full max-w-[1400px] pt-5">
         {#each cour as c}
-  <div
-    class="bg-white/10 backdrop-blur-sm border border-white/20 shadow-md rounded-2xl w-full h-40 flex flex-col justify-center items-center text-white text-lg font-semibold hover:scale-105 hover:shadow-lg cursor-pointer transition-transform duration-300"
-    on:click={() => window.open(c.file_url, "_blank")}
-  >
-    <h3 class="text-lg font-semibold mb-2">{c.title}</h3>
-    <p class="text-sm text-white/70">{c.subtitle}</p>
+  <div class="bg-white/10 backdrop-blur-sm border border-white/20 shadow-md rounded-2xl w-full h-50 flex flex-col justify-center items-center text-white text-lg font-semibold hover:scale-105 hover:shadow-lg transition-transform duration-300">
+      <h3 class="text-lg font-semibold mb-2">{c.title}</h3>
+      <img src="/public/pdf.png" alt="" class="">
+        <p class="text-center text-sm text-white/70">{c.subtitle}</p>
+        <a class="flex items-center gap-1 text-sm text-blue-500 cursor-pointer text-center transition-color duration-300 ease-out hover:underline hover:text-blue-600" href="{c.file_url}" target="_blank">Preview <ExternalLink class = 'w-4 h-4'/></a>
   </div>
 {/each}
     </div>
-    
-
     <button on:click={openModal} class="absolute bottom-6 right-8 backdrop-blur-3xl bg-white/10 shadow-xl border border-white/20 
         rounded-full flex justify-center items-center text-white hover:scale-110 transition-transform duration-300 cursor-pointer p-4 size-16">
         <img class="w-6 h-6" src="/public/plus.png" alt="add">

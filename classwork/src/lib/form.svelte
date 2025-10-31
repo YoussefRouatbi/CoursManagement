@@ -46,6 +46,7 @@
       msg = data.message
       succes = true
       show = true
+      shown = false
       onClose();
     }catch(e){
       msg = e
