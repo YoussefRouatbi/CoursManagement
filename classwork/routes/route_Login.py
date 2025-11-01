@@ -26,5 +26,6 @@ def upload_user():
         return jsonify({'message' : 'User not found'}),400
     session.permanent = True
     session['username'] = username
+    session['role'] = rows[0][3]
     print(session)
-    return jsonify({'message' : 'User logged in successfully', 'username' : rows[0][1]}),200
+    return jsonify({'message' : 'User logged in successfully', 'username' : rows[0][1], 'role' : rows[0][3]}),200

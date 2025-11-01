@@ -6,7 +6,7 @@ me_bp = Blueprint('me_bp',__name__)
 @me_bp.route('/me',methods = ['GET'])
 def me():
     if 'username' in session:
-        return jsonify({'username': session['username']}), 200
+        return jsonify({'username': session['username'], 'role' : session['role']}), 200
     print(session)
     return jsonify({'username':None}), 401
 

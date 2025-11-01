@@ -57,7 +57,7 @@
 
 
 {#if loading}
-  <div class="flex-col gap-4 w-full flex items-center justify-center min-h-screen z-40 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
+  <div class="relative bg-slate-900 border border-white/10 shadow-lg w-full mt-[50px] rounded-lg min-h-[calc(100vh-60px)] p-6 md:p-8 backdrop-blur-md flex-col gap-4 w-full flex items-center justify-center bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950">
     <div class="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-800 rounded-full">
       <div class="w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-blue-300 rounded-full">
       </div>
@@ -108,6 +108,6 @@
         rounded-full flex justify-center items-center text-white hover:scale-110 transition-transform duration-300 cursor-pointer p-4 size-16">
         <img class="w-6 h-6" src="/public/plus.png" alt="add">
     </button>
-    <Form bind:shown = {showModal} onClose = {handleModalClose}/>
+    <Form bind:shown = {showModal} onClose = {handleModalClose} on:added={(e) => {selected = e.detail; getCourses()}} />
 </main>
 {/if}

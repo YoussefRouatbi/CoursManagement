@@ -4,6 +4,7 @@ from route_Login import auth_user
 from route_signup import auth_user_signup
 from route_upload import upload_content
 from me import me_bp
+from admin import import_info
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
@@ -28,6 +29,7 @@ app.register_blueprint(auth_user)
 app.register_blueprint(auth_user_signup)
 app.register_blueprint(me_bp)
 app.register_blueprint(upload_content)
+app.register_blueprint(import_info)
 
 
 

@@ -5,7 +5,7 @@
   export let onClose = () => {};
   import { createEventDispatcher } from "svelte";
 
-  const disptach = createEventDispatcher();
+  const dispatch = createEventDispatcher();
   const matiers = ['Algorithme', 'STI', 'Math', 'Physique', 'Language', 'Options'];
   let selectedMatier = '';
   let file = null;
@@ -25,43 +25,41 @@
 
   async function UploadFile() {
     if (!file) {
-      msg = "Please select a PDF file!"
-      succes = false
-      show = true
-      setTimeout(() => {
-        show = false;
-      }, 2000);
+      msg = "Please select a PDF file!";
+      succes = false;
+      show = true;
+      setTimeout(() => show = false, 2000);
       return;
     }
+
     const DataInfo = new FormData();
-    DataInfo.append('file',file)
-    DataInfo.append('title',title)
-    DataInfo.append('subtitle',subtitle)
-    DataInfo.append('matier',selectedMatier)
-    try{
-      loader = true
-      const res = await fetch('http://127.0.0.1:5000/upload_file',{
+    DataInfo.append('file', file);
+    DataInfo.append('title', title);
+    DataInfo.append('subtitle', subtitle);
+    DataInfo.append('matier', selectedMatier);
+
+    try {
+      loader = true;
+      const res = await fetch('http://127.0.0.1:5000/upload_file', {
         method: 'POST',
         body: DataInfo
       });
       const data = await res.json();
-      if(!res.ok) throw new Error(data.message)
-      msg = data.message
-      succes = true
-      show = true
-      shown = false
-      onClose();
-    }catch(e){
-      msg = e
-      succes = false
-      show = true
-    }finally{
-      loader = false
-      setTimeout(() => {
-        show = false;
-      }, 2000);
+      if (!res.ok) throw new Error(data.message);
+      msg = data.message;
+      succes = true;
+      show = true;
+      dispatch('added', selectedMatier);
+      setTimeout(() => closeModal(), 500);
+    } catch(e) {
+      msg = e;
+      succes = false;
+      show = true;
+    } finally {
+      loader = false;
+      setTimeout(() => show = false, 2000);
     }
-  }
+}
 </script>
 <Alert {show} {msg} {succes}/>
 {#if loader}

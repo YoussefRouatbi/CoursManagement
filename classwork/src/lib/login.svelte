@@ -14,7 +14,7 @@
     let score = 0;
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!VerifInfo(username,password)){
+        if (!VerifInfo(username)){
             msg = 'Please Check your username and your password';
             show = true;
             succes = false
@@ -26,7 +26,7 @@
         }
         LoginUser();
     };
-    function VerifInfo(username, password){
+    function VerifInfo(username){
         if (username.length > 15) return false;
         const pattern = /^[A-Za-z][A-Za-z0-9_]*$/;
         return pattern.test(username);
@@ -48,7 +48,7 @@
             msg = data.message
             succes = true
             show = true
-            dispatch('authSuccess',{username: data.username})
+            dispatch('authSuccess',{username: data.username,role : data.role})
         }catch(e){
             succes = false
             show = true

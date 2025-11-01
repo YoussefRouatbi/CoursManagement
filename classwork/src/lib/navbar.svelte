@@ -12,7 +12,9 @@
   }
 </script>
 
-<div class="min-h-[calc(100vh-60px)] w-[200px] backdrop-blure-xl shadow-3xl rounded-xl bg-white/5 flex flex-col space-y-5 p-5 mt-[70px] border border-white/20" transition:fly={{x:-99, duration:400}}>
+<div class="min-h-[calc(100vh-60px)] w-[200px] backdrop-blur-xl shadow-3xl rounded-xl bg-white/5 flex flex-col space-y-5 p-5 mt-[70px] border border-white/20
+         fixed md:relative top-0 left-0 z-50 md:z-auto transition-all duration-300"
+  transition:fly={{x:-99, duration:400}}>
     <div>
         <h1 class="text-white text-2xl">Matiers</h1>
         <hr class="text-white w-full">
