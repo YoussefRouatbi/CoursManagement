@@ -22,6 +22,7 @@
     "headlessui": "^0.0.0",
     "svelte-headlessui": "^0.0.46",
     "svelte-select": "^5.8.3",
-    "svelte-spa-router": "^4.0.1"
+    "svelte-spa-router": "^4.0.1",
+    "zxcvbn": "^4.4.2"
   }
 }

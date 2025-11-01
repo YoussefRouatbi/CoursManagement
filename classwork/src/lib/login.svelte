@@ -11,10 +11,11 @@
     let loader = false;
     let msg = '';
     let succes = true;
+    let score = 0;
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!VerifInfo(username)){
-            msg = 'Please Check your username';
+        if (!VerifInfo(username,password)){
+            msg = 'Please Check your username and your password';
             show = true;
             succes = false
             loader = false
@@ -25,8 +26,7 @@
         }
         LoginUser();
     };
-
-    function VerifInfo(username){
+    function VerifInfo(username, password){
         if (username.length > 15) return false;
         const pattern = /^[A-Za-z][A-Za-z0-9_]*$/;
         return pattern.test(username);

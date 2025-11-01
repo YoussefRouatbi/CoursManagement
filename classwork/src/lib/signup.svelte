@@ -4,8 +4,10 @@
     import CheckPassword from './checkPassword.svelte';
     import PassEye from './passEye.svelte';
     import Alert from './alert.svelte';
-    import Pass from './passEye.svelte';
-    
+    import zxcvbn from "zxcvbn";
+
+    $: strength = zxcvbn(password);
+    $: score = strength.score;
     const dispatch = createEventDispatcher();
     let showPassword = false;
     let show = false;
@@ -31,6 +33,15 @@
                 show = false
             }, 2000);
             return
+        }
+        if (score < 4) {
+            msg = "Password too weak. Use at least 10 chars w/ upper, lower, number & symbol.";
+            succes = false;
+            show = true;
+            setTimeout(() => {
+                show = false
+            }, 2000);
+            return;
         }
         SignUp();
     };
