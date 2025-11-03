@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_cors import CORS
+import os
 from connect_db import connect_database
 
 import_info = Blueprint('import_info',__name__)
@@ -53,7 +54,11 @@ def upload_cousre():
 
 
 
-counter_file = "views.txt"
+counter_file = os.path.join(os.path.dirname(__file__), "views.txt")
+if not os.path.exists(counter_file):
+    with open(counter_file, "w") as f:
+        f.write("0")
+
 def get_views():
     try:
         with open(counter_file, "r") as f:
@@ -66,6 +71,7 @@ def increment_views():
     with open(counter_file, "w") as f:
         f.write(str(count))
     return count
+
 
 
 

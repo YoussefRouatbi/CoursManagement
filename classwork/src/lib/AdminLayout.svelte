@@ -23,7 +23,18 @@
 
   onMount(async () => {
     await fetchData();
+    await FetchView()
   });
+
+  async function FetchView(){
+    try {
+      const res = await fetch('http://localhost:5000/');
+      const data = await res.json();
+      stats.views = data.views;
+    } catch (err) {
+      console.error('Error fetching views:', err);
+    }
+  }
 
   async function fetchData() {
     try{
@@ -33,7 +44,6 @@
       allUsers = data.users
       stats.users = data.nbUsers
       stats.courses = data.nbCourse
-      stats.views = data.nbUsers
       courses = data.course
       if(!res.ok){throw new Error}
     }catch(e){
