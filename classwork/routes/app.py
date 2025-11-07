@@ -22,7 +22,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE="None",
     SESSION_COOKIE_SECURE=True
 )
-CORS(app,supports_credentials=True)
+CORS(app,origins="*",supports_credentials=True)
 
 
 app.register_blueprint(auth_user)
