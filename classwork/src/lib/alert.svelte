@@ -10,7 +10,7 @@
 
 {#if show}
   <div
-    class="fixed top-5 left-1/2 transform -translate-x-1/2 w-[100%] sm:w-auto min-w-md border-l-4 p-4 rounded-lg shadow-lg bg-gray-900 flex items-center space-x-3" class:border-green-400={succes} class:border-red-500={!succes}
+    class="fixed top-5 left-1/2 transform -translate-x-1/2 w-[100%] sm:w-auto min-w-md border-l-4 p-4 rounded-lg shadow-lg bg-gray-900 flex items-center space-x-3 z-40" class:border-green-400={succes} class:border-red-500={!succes}
     style="box-shadow: 0 0 15px {succes ? '#00ff99' : '#ff3300'};"
     in:fly={{ y: -50, duration: 400 }}
     out:fly={{ y: -50, duration: 400 }}
