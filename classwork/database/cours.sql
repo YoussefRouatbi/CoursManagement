@@ -22,6 +22,6 @@ Create Table users(
     username varchar(15) unique not null,
     user_password varchar(255) not null,
     typeUser varchar(10) default 'user' CHECK (typeUser IN ('admin', 'user')),
-    date_insc date default current_date()
+    date_insc datetime default CURRENT_TIMESTAMP
 );
 

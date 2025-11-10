@@ -18,7 +18,7 @@ def upload_user():
         return jsonify({'message': 'Username and password required'}), 400
     conn = connect_database()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM USERS WHERE username = %s and user_password = %s',(username,password))
+    cursor.execute('SELECT * FROM users WHERE username = %s and user_password = %s',(username,password))
     rows = cursor.fetchall()
     cursor.close()
     conn.close()
