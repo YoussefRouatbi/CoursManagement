@@ -153,7 +153,6 @@
         </table>
       </div>
 
-      <!-- Pagination -->
       <div class="mt-4 flex justify-center items-center space-x-2 text-sm">
         <button class="px-3 py-1 bg-slate-700 hover:bg-slate-600 rounded-lg" on:click={prevPage} disabled={currentPage===1}>Previous</button>
         {#each Array(totalPages) as _, i}
