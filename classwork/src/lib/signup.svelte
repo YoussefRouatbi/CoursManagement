@@ -58,7 +58,7 @@
         dataForm.append('username',username);
         dataForm.append('password',password);
         try{
-            const res = await fetch('http://127.0.0.1:5000/signup',{
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/signup`,{
                     method : 'POST',
                     body : dataForm
             });

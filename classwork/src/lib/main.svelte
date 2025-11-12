@@ -28,7 +28,7 @@
   async function getCourses() {
     try{
       loading = true;
-      const res = await fetch(`http://127.0.0.1:5000/courses?matier=${selected}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/courses?matier=${selected}`);
       const cours = await res.json()
       if(!res.ok)throw new Error()
       course = cours

@@ -28,7 +28,7 @@
 
   async function FetchView(){
     try {
-      const res = await fetch('http://localhost:5000/');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}`);
       const data = await res.json();
       stats.views = data.views;
     } catch (err) {
@@ -39,7 +39,7 @@
   async function fetchData() {
     try{
       loading = true
-      const res = await fetch('http://127.0.0.1:5000/import')
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/import`)
       const data = await res.json();
       allUsers = data.users
       stats.users = data.nbUsers
@@ -59,7 +59,7 @@
     dataForm.append('fileUrl',c[1])
     try{
       loading = true
-      const res = await fetch(`http://127.0.0.1:5000/delete`,{
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/delete`,{
         method : 'POST',
         body : dataForm
       })

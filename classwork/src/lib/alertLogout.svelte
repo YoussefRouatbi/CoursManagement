@@ -16,7 +16,7 @@
 
   async function Logout() {
 	try{
-		const res = await fetch('http://127.0.0.1:5000/logout',{
+		const res = await fetch(`${import.meta.env.VITE_API_URL}/logout`,{
 			method: "POST",
   			credentials: "include"
 		})
