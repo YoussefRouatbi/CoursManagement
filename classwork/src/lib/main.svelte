@@ -108,6 +108,6 @@
         rounded-full flex justify-center items-center text-white hover:scale-110 transition-transform duration-300 cursor-pointer p-4 size-16">
         <img class="w-6 h-6" src="/public/plus.png" alt="add">
     </button>
-    <Form bind:shown = {showModal} onClose = {handleModalClose} on:added={(e) => {selected = e.detail; getCourses()}} />
 </main>
+<Form bind:shown = {showModal} onClose = {handleModalClose} on:added={(e) => {selected = e.detail; getCourses()}} />
 {/if}
