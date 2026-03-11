@@ -85,6 +85,7 @@ CoursManagement
 ```bash
 git clone https://github.com/YoussefRouatbi/CoursManagement.git
 cd CoursManagement
+cd classwork
 ```
 
 ---
