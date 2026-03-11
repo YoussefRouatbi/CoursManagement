@@ -26,3 +26,5 @@ dist-ssr
 #routes
 routes/.env
 routes/__pycache__/
+
+classwork/venv
